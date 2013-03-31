@@ -9,7 +9,7 @@ if cat /etc/issue | grep Ubuntu; then
     TOOLCHAIN_PREFIX=~/android/android-toolchain-eabi/bin/arm-eabi-
 else
     BUSYBSPEC=/Volumes/android/busybox-android
-    TOOLCHAIN_PREFIX=/Volumes/android/android-toolchain-eabi/bin/arm-eabi-
+    TOOLCHAIN_PREFIX=/Users/TwistedZero/Applications/android-ndk/toolchains/arm-linux-androideabi-4.7/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-
 fi
 BSYCONFIG=loungekatt_config
 CPU_JOB_NUM=8
