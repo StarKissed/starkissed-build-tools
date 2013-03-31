@@ -68,8 +68,8 @@
 
 #if ENABLE_FEATURE_IPC_SYSLOG
 #include <sys/ipc.h>
-#include <sys/sem.h>
-#include <sys/shm.h>
+#include <linux/sem.h>
+#include <linux/shm.h>
 #endif
 
 
@@ -974,7 +974,8 @@ static void do_syslogd(void)
 
 	timestamp_and_log_internal("syslogd exiting");
 	puts("syslogd exiting");
-	remove_pidfile(CONFIG_PID_FILE_PATH "/syslogd.pid");
+	/*remove_pidfile(CONFIG_PID_FILE_PATH "/syslogd.pid");*/
+    remove_pidfile("/var/run/syslogd.pid");
 	ipcsyslog_cleanup();
 	if (option_mask32 & OPT_kmsg)
 		kmsg_cleanup();
@@ -1041,7 +1042,8 @@ int syslogd_main(int argc UNUSED_PARAM, char **argv)
 	}
 
 	//umask(0); - why??
-	write_pidfile(CONFIG_PID_FILE_PATH "/syslogd.pid");
+	/*write_pidfile(CONFIG_PID_FILE_PATH "/syslogd.pid");*/
+    write_pidfile("/var/run/syslogd.pid");
 
 	do_syslogd();
 	/* return EXIT_SUCCESS; */

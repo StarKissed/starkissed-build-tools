@@ -31,7 +31,8 @@ static void watchdog_shutdown(int sig UNUSED_PARAM)
 {
 	static const char V = 'V';
 
-	remove_pidfile(CONFIG_PID_FILE_PATH "/watchdog.pid");
+	/*remove_pidfile(CONFIG_PID_FILE_PATH "/watchdog.pid");*/
+    remove_pidfile("/var/run/watchdog.pid");
 	write(3, &V, 1);  /* Magic, see watchdog-api.txt in kernel */
 	if (ENABLE_FEATURE_CLEAN_UP)
 		close(3);
@@ -96,7 +97,8 @@ int watchdog_main(int argc, char **argv)
 		stimer_duration, htimer_duration * 1000);
 #endif
 
-	write_pidfile(CONFIG_PID_FILE_PATH "/watchdog.pid");
+	/*write_pidfile(CONFIG_PID_FILE_PATH "/watchdog.pid");*/
+    write_pidfile("/var/run/watchdog.pid");
 
 	while (1) {
 		/*
