@@ -248,7 +248,6 @@
 # define dbg3(...) ((void)0)
 #endif
 
-
 static const char keywords[] ALIGN1 = "add\0remove\0"; // "change\0"
 enum { OP_add, OP_remove };
 
@@ -982,9 +981,10 @@ wait_for_seqfile(const char *seq)
 			do_once = 0;
 		}
 		/*if (sigtimedwait(&set_CHLD, NULL, &ts) >= 0) {*/
-			/*dbg3("woken up");*/
-			/*continue;*/ /* don't decrement timeout! */
-		/*} - This function needs support for sigtimedwait*/
+        if (sigpending(&set_CHLD) >= 0) {
+			dbg3("woken up");
+			continue; /* don't decrement timeout! */
+		}
 		if (--timeout == 0) {
 			dbg1("%s waiting for '%s'", "timed out", seqbuf);
 			break;
