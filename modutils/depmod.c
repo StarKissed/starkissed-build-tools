@@ -50,7 +50,10 @@ static int FAST_FUNC parse_module(const char *fname, struct stat *sb UNUSED_PARA
 	*first = info;
 
 	info->dnext = info->dprev = info;
-	info->name = xstrdup(fname + 2); /* skip "./" */
+	if (strncmp(fname, "./", 2) == 0)
+		info->name = xstrdup(fname + 2);
+	else
+		info->name = xstrdup(fname);
 	info->modname = xstrdup(filename2modname(fname, modname));
 	for (ptr = image; ptr < image + len - 10; ptr++) {
 		if (strncmp(ptr, "depends=", 8) == 0) {

@@ -93,7 +93,9 @@ static int do_em_all(void)
 			/* swapon -a should ignore entries with noauto,
 			 * but swapoff -a should process them */
 			if (applet_name[5] != 'n'
+#ifdef MNTOPT_NOAUTO
 			 || hasmntopt(m, MNTOPT_NOAUTO) == NULL
+#endif
 			) {
 				err += swap_enable_disable(m->mnt_fsname);
 			}

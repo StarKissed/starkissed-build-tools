@@ -372,6 +372,7 @@ typedef unsigned smalluint;
 #define HAVE_MNTENT_H 1
 #define HAVE_NET_ETHERNET_H 1
 #define HAVE_SYS_STATFS_H 1
+#define HAVE_MEMPCPY 1
 
 #if defined(__UCLIBC_MAJOR__)
 # if __UCLIBC_MAJOR__ == 0 \
@@ -451,6 +452,8 @@ typedef unsigned smalluint;
 # undef HAVE_STRVERSCMP
 # undef HAVE_UNLOCKED_LINE_OPS
 # undef HAVE_NET_ETHERNET_H
+# undef HAVE_MEMPCPY
+# undef HAVE_SETBIT
 #endif
 
 /*
@@ -508,6 +511,11 @@ extern int vasprintf(char **string_ptr, const char *format, va_list p) FAST_FUNC
 # include <stdio.h> /* for FILE */
 # include <sys/types.h> /* size_t */
 extern ssize_t getline(char **lineptr, size_t *n, FILE *stream) FAST_FUNC;
+#endif
+
+#ifndef HAVE_MEMPCPY
+# include <sys/types.h> /* size_t */
+extern void *mempcpy(void *dest, const void *src, size_t n);
 #endif
 
 #endif

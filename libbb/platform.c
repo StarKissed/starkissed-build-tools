@@ -174,3 +174,12 @@ ssize_t FAST_FUNC getline(char **lineptr, size_t *n, FILE *stream)
 	return len;
 }
 #endif
+
+#ifndef HAVE_MEMPCPY
+void *mempcpy(void *dest, const void *src, size_t n)
+{
+  memcpy(dest, src, n);
+  dest += n;
+  return dest;
+}
+#endif

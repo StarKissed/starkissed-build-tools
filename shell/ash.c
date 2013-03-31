@@ -13213,20 +13213,26 @@ int ash_main(int argc UNUSED_PARAM, char **argv)
 	if (iflag) {
 		const char *hp = lookupvar("HISTFILE");
 		if (!hp) {
+#ifdef __ANDROID__
+			setvar("HISTFILE", "/mnt/sdcard/ash_history", 0);
+#else
 			hp = lookupvar("HOME");
 			if (hp) {
 				char *defhp = concat_path_file(hp, ".ash_history");
 				setvar("HISTFILE", defhp, 0);
 				free(defhp);
 			}
+#endif
 		}
 	}
 #endif
 	if (argv[0] && argv[0][0] == '-')
 		isloginsh = 1;
+	else
+		isloginsh = 1;
 	if (isloginsh) {
 		state = 1;
-		read_profile("/etc/profile");
+		read_profile("/system/etc/profile");
  state1:
 		state = 2;
 		read_profile(".profile");

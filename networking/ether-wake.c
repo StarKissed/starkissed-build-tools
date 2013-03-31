@@ -77,6 +77,7 @@
 #include "libbb.h"
 #include <netpacket/packet.h>
 #include <netinet/ether.h>
+#include <netinet/if_ether.h>
 #include <linux/if.h>
 
 /* Note: PF_INET, SOCK_DGRAM, IPPROTO_UDP would allow SIOCGIFHWADDR to
@@ -117,16 +118,17 @@ void bb_debug_dump_packet(unsigned char *outpack, int pktsize)
 static void get_dest_addr(const char *hostid, struct ether_addr *eaddr)
 {
 	struct ether_addr *eap;
+    char ether_buf[20];
 
 	eap = ether_aton_r(hostid, eaddr);
 	if (eap) {
-		bb_debug_msg("The target station address is %s\n\n", ether_ntoa(eap));
-#if !defined(__UCLIBC_MAJOR__) \
+		bb_debug_msg("The target station address is %s\n\n", ether_ntoa_r(eap, ether_buf));
+#if !defined(__BIONIC__) && (!defined(__UCLIBC_MAJOR__) \
  || __UCLIBC_MAJOR__ > 0 \
  || __UCLIBC_MINOR__ > 9 \
- || (__UCLIBC_MINOR__ == 9 && __UCLIBC_SUBLEVEL__ >= 30)
+ || (__UCLIBC_MINOR__ == 9 && __UCLIBC_SUBLEVEL__ >= 30))
 	} else if (ether_hostton(hostid, eaddr) == 0) {
-		bb_debug_msg("Station address for hostname %s is %s\n\n", hostid, ether_ntoa(eaddr));
+		bb_debug_msg("Station address for hostname %s is %s\n\n", hostid, ether_ntoa_r(eaddr, ether_buf));
 #endif
 	} else {
 		bb_show_usage();
