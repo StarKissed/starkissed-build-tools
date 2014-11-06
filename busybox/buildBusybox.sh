@@ -10,11 +10,10 @@ if cat /etc/issue | grep Ubuntu; then
     FUSEREPO=~/Dropbox/TwistedServer/ScriptFusion/binaryfiles
     SEDOUTPT='s/CONFIG_SYSROOT=.*$/CONFIG_SYSROOT=\"~\/android\/android-ndk-14\/arch-arm\"/'
 else
-    BUSYBSPEC=/Volumes/android/busybox-android
-    TOOLCHAIN_PREFIX=/Users/TwistedZero/Applications/android-ndk/toolchains/arm-linux-androideabi-4.7/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-
-    FUSEREPO=/Users/TwistedZero/Public/Dropbox/TwistedServer/ScriptFusion/binaryfiles
-    STARREPO=/Users/TwistedZero/Dropbox/StarKissedMod/res/raw
-    DUALREPO=/Users/TwistedZero/Dropbox/NexusDualBoot/res/raw
+    BUSYBSPEC=/Volumes/android/starkissed-build-tools/busybox
+    TOOLCHAIN_PREFIX=/Volumes/android/android-toolchain-eabi-4.7/bin/arm-eabi-
+    FUSEREPO=$DROPBOX_SERVER/TwistedServer/ScriptFusion/binaryfiles
+    STARREPO=$DROPBOX_SYSTEM/LoungeKattGit/StarKissedMod/res/raw
     SEDOUTPT='s/CONFIG_SYSROOT=.*$/CONFIG_SYSROOT=\"\/Volumes\/android\/android-ndk-14\/arch-arm\"/'
 fi
 BSYCONFIG=loungekatt_config
