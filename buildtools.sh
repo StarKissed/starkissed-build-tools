@@ -1,10 +1,10 @@
 if cat /etc/issue | grep Ubuntu; then
 
-BUILDSTRUCT=linux
+BUILDSTRUCT=binaries/linux
 
 else
 
-BUILDSTRUCT=darwin
+BUILDSTRUCT=binaries/darwin
 
 fi
 
